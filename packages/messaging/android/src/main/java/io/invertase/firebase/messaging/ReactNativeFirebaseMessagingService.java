@@ -4,6 +4,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import io.invertase.firebase.common.ReactNativeFirebaseEventEmitter;
+import com.urbanairship.push.fcm.AirshipFirebaseIntegration;
 
 public class ReactNativeFirebaseMessagingService extends FirebaseMessagingService {
   @Override
@@ -26,6 +27,7 @@ public class ReactNativeFirebaseMessagingService extends FirebaseMessagingServic
 
   @Override
   public void onNewToken(String token) {
+    AirshipFirebaseIntegration.processNewToken(getApplicationContext());
     ReactNativeFirebaseEventEmitter emitter = ReactNativeFirebaseEventEmitter.getSharedInstance();
     emitter.sendEvent(ReactNativeFirebaseMessagingSerializer.newTokenToTokenEvent(token));
   }
