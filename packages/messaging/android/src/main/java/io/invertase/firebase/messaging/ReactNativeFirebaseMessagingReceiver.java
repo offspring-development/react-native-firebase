@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 import io.invertase.firebase.common.ReactNativeFirebaseEventEmitter;
 import io.invertase.firebase.common.SharedUtils;
+import com.urbanairship.push.fcm.AirshipFirebaseIntegration;
 
 public class ReactNativeFirebaseMessagingReceiver extends BroadcastReceiver {
   private static final String TAG = "RNFirebaseMsgReceiver";
@@ -25,6 +26,7 @@ public class ReactNativeFirebaseMessagingReceiver extends BroadcastReceiver {
 
     RemoteMessage remoteMessage = new RemoteMessage(intent.getExtras());
     ReactNativeFirebaseEventEmitter emitter = ReactNativeFirebaseEventEmitter.getSharedInstance();
+    AirshipFirebaseIntegration.processMessage(context, remoteMessage);
 
     // Add a RemoteMessage if the message contains a notification payload
     if (remoteMessage.getNotification() != null) {
